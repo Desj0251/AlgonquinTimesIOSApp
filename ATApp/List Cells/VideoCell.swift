@@ -14,6 +14,12 @@ class videoCell: BaseCell {
         setupViews()
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? UIColor.rgb(200, 200, 200) : UIColor.white
+        }
+    }
+    
     var article: [String: Any]? {
         didSet {
             
@@ -25,7 +31,7 @@ class videoCell: BaseCell {
             if let testtitle = cleanTitle as? String {
                 let size = CGSize(width: frame.width - 16 - 44 - 8 - 16, height: 1000)
                 let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-                let estimatedRect = NSString(string: testtitle).boundingRect(with: size, options: options, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14.0)], context: nil)
+                let estimatedRect = NSString(string: testtitle).boundingRect(with: size, options: options, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16.0)], context: nil)
                 
                 if estimatedRect.size.height > 20 {
                     titleLabelHeightConstraint?.constant = 44
@@ -57,22 +63,21 @@ class videoCell: BaseCell {
                 userProfileImageView.image = UIImage(named: "taylor_swift_profile")
             }
             
-            
             let dateFormatter = DateFormatter()
             let tempLocale = dateFormatter.locale // save locale temporarily
             dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             let date = dateFormatter.date(from: string!)!
-            dateFormatter.dateFormat = "MMM d h:mm a"
+            dateFormatter.dateFormat = "MMMM d, yyyy"
             dateFormatter.locale = tempLocale // reset the locale
             let dateString = dateFormatter.string(from: date)
             
-            subtitleLabel.text = "Written by: \(authorName!) • \(String(describing: dateString))"
+            subtitleLabel.text = "\(authorName!) - \(String(describing: dateString))"
             
             if let media = embedded!["wp:featuredmedia"] as? [[String: Any]] {
                 let mediaDetails = media[0]["media_details"] as? [String: Any]
                 let sizes = mediaDetails!["sizes"] as? [String: Any]
-                let large = sizes!["thumbnail"] as? [String: Any]
+                let large = sizes!["medium"] as? [String: Any]
                 let imageUrl = large!["source_url"] as? String
                 let url = URL(string: imageUrl!)
                 
@@ -123,16 +128,18 @@ class videoCell: BaseCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 14.0)
+        label.font = UIFont.boldSystemFont(ofSize: 16.0)
         label.numberOfLines = 2
+        //label.textColor = UIColor.forestGreen
         return label
     }()
     let subtitleLabel: UITextView = {
         let label = UITextView()
         label.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
-        label.textColor = UIColor.lightGray
-        label.font = UIFont.italicSystemFont(ofSize: 12)
+        label.textColor = UIColor.gray
+        label.font = UIFont.italicSystemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = UIColor.clear
         return label
     }()
     
@@ -150,7 +157,7 @@ class videoCell: BaseCell {
         
         // Vertical Contraints
         addConstraintsWithFormat("V:|-16-[v0]-8-[v1(44)]-36-[v2(1)]|", views: thumbnailImageView, userProfileImageView, seperatorView)
-        addConstraintsWithFormat("H:|[v0]|", views: seperatorView)
+        addConstraintsWithFormat("H:|-16-[v0]-16-|", views: seperatorView)
         
         // Top Constraint
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: 8))

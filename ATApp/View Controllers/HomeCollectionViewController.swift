@@ -10,6 +10,8 @@ import UIKit
 
 private let reuseIdentifier = "SomeId"
 
+
+
 class HomeCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {}
@@ -138,6 +140,12 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     func moreSetUp() {
+        
+        self.navigationController?.navigationBar.layer.shadowColor = UIColor.gray.cgColor
+        self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        self.navigationController?.navigationBar.layer.shadowRadius = 4.0
+        self.navigationController?.navigationBar.layer.shadowOpacity = 0.75
+        self.navigationController?.navigationBar.layer.masksToBounds = false
         
         settingView.dataSource = self
         settingView.delegate = self

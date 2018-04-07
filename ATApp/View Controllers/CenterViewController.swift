@@ -8,11 +8,11 @@
 
 import UIKit
 
+let imageCache = NSCache<AnyObject, AnyObject>()
+
 class CenterViewController: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
     }
-    
 }
