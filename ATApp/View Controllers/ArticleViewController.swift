@@ -110,12 +110,26 @@ class ArticleViewController: UIViewController {
     }()
     
     let shareButton: UIButton = {
+        
+        func imageResize (image:UIImage, sizeChange:CGSize) -> UIImage{
+            let hasAlpha = true
+            let scale: CGFloat = 0.0 // Use scale factor of main screen
+            UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+            image.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
+            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+            return scaledImage!
+        }
+        
         let button = UIButton()
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.forestGreen.cgColor
-        button.setTitle("Share Article", for: .normal)
-        button.setTitleColor(UIColor.forestGreen, for: .normal)
+        var shareImage = UIImage(named: "share")
+        shareImage = imageResize(image: shareImage!, sizeChange: CGSize(width: 20, height: 20)).withRenderingMode(.alwaysTemplate)
+        button.setImage(shareImage, for: .normal)
+        button.tintColor = UIColor.forestGreen
+//        button.setTitle("Share Article", for: .normal)
+//        button.setTitleColor(UIColor.forestGreen, for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return button
     }()
