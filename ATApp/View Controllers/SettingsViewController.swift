@@ -2,7 +2,7 @@
 //  SettingsViewController.swift
 //  ATApp
 //
-//  Created by Janki on 2018-03-17.
+//  Created by John Desjardins on 2018-03-17.
 //  Copyright © 2018 Algonquin College. All rights reserved.
 //
 
@@ -21,15 +21,5 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

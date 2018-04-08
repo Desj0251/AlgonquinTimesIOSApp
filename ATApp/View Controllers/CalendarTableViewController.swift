@@ -77,8 +77,13 @@ class CalendarTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setLoadingScreen()
-        
         setNav()
+        
+        self.navigationController?.navigationBar.layer.shadowColor = UIColor.gray.cgColor
+        self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        self.navigationController?.navigationBar.layer.shadowRadius = 4.0
+        self.navigationController?.navigationBar.layer.shadowOpacity = 0.75
+        self.navigationController?.navigationBar.layer.masksToBounds = false
         
         self.tableView.separatorColor = UIColor.forestGreen
         let requestUrl: URL = URL(string: "http://www.algonquinsa.com/wp-json/tribe/events/v1/events?per_page=100")!

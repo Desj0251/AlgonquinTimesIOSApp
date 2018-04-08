@@ -2,7 +2,7 @@
 //  SocialViewController.swift
 //  ATApp
 //
-//  Created by Janki on 2018-03-17.
+//  Created by John Desjardins on 2018-03-17.
 //  Copyright © 2018 Algonquin College. All rights reserved.
 //
 
