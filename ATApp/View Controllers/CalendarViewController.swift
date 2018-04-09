@@ -137,9 +137,6 @@ class CalendarViewController: UIViewController {
 
     let articleContent: WKWebView = {
         let label = WKWebView()
-//        label.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
-//        label.backgroundColor = UIColor.clear
-//        label.isEditable = false
         return label
     }()
     

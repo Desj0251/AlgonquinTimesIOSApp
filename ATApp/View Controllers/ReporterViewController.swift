@@ -19,18 +19,36 @@ UINavigationControllerDelegate {
     @IBOutlet weak var txtFieldTitle: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    var name: String?
-    var email: String?
+    var name: String? = ""
+    var prevVC: UIViewController!
     
     @IBOutlet weak var scrollViewBottomConstraints: NSLayoutConstraint!
     var picker = UIImagePickerController()
     
+    let backButton: UIButton = {
+        let button = UIButton()
+        var imageView = UIImage(named: "close")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(imageView, for: .normal)
+        button.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
+        button.tintColor = UIColor.gray
+        return button
+    }()
+    
+    @objc func closeAction() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.addSubview(backButton)
+        
+        view.addConstraintsWithFormat("H:|-4-[v0(33)]|", views: backButton)
+        view.addConstraintsWithFormat("V:|-24-[v0(33)]|", views: backButton)
+        
         self.picker.delegate = self;
         // Do any additional setup after loading the view.
+        // prevVC.dismiss(animated: false, completion: nil)
         
         txtFieldTitle.layer.cornerRadius = 5
         txtFieldTitle.layer.borderWidth = 1

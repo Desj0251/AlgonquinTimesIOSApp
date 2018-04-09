@@ -15,11 +15,10 @@
 		8F0637C5206A91410012C5F2 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0637C4206A91410012C5F2 /* ArticleViewController.swift */; };
 		8F0637C7206A96D10012C5F2 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0637C6206A96D10012C5F2 /* ArticleTableViewCell.swift */; };
 		8F0637CB20703C910012C5F2 /* theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0637CA20703C910012C5F2 /* theme.swift */; };
-		8F2D1D7020732AAD0000A4E4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2D1D6F20732AAD0000A4E4 /* TestViewController.swift */; };
-		8F2D1D72207342480000A4E4 /* logintostoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2D1D71207342480000A4E4 /* logintostoryViewController.swift */; };
 		8F3932EC2077C8E100FE2111 /* HomeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3932EB2077C8E100FE2111 /* HomeCollectionViewController.swift */; };
 		8F3932EE2078039800FE2111 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3932ED2078039800FE2111 /* VideoCell.swift */; };
 		8FB53A9B20753F52003C89D9 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB53A9A20753F52003C89D9 /* FilterCell.swift */; };
+		8FD522AE207AAEB700A2594E /* loginTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD522AD207AAEB700A2594E /* loginTestViewController.swift */; };
 		B81C5CC3205DA0BD00F622F4 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81C5CC2205DA0BD00F622F4 /* SocialViewController.swift */; };
 		B81C5CC5205DA0C800F622F4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81C5CC4205DA0C800F622F4 /* SettingsViewController.swift */; };
 		B81C5CC7205DA12200F622F4 /* ReporterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81C5CC6205DA12200F622F4 /* ReporterViewController.swift */; };
@@ -67,11 +66,10 @@
 		8F0637C6206A96D10012C5F2 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 		8F0637CA20703C910012C5F2 /* theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = theme.swift; sourceTree = "<group>"; };
 		8F2D1D6B207327780000A4E4 /* ATApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ATApp-Bridging-Header.h"; sourceTree = "<group>"; };
-		8F2D1D6F20732AAD0000A4E4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		8F2D1D71207342480000A4E4 /* logintostoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logintostoryViewController.swift; sourceTree = "<group>"; };
 		8F3932EB2077C8E100FE2111 /* HomeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewController.swift; sourceTree = "<group>"; };
 		8F3932ED2078039800FE2111 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		8FB53A9A20753F52003C89D9 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		8FD522AD207AAEB700A2594E /* loginTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginTestViewController.swift; sourceTree = "<group>"; };
 		B81C5CC2205DA0BD00F622F4 /* SocialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialViewController.swift; sourceTree = "<group>"; };
 		B81C5CC4205DA0C800F622F4 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B81C5CC6205DA12200F622F4 /* ReporterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporterViewController.swift; sourceTree = "<group>"; };
@@ -149,11 +147,10 @@
 				B81C5CCA205DA18C00F622F4 /* CenterViewController.swift */,
 				8F3932EB2077C8E100FE2111 /* HomeCollectionViewController.swift */,
 				8F0637C4206A91410012C5F2 /* ArticleViewController.swift */,
+				8FD522AD207AAEB700A2594E /* loginTestViewController.swift */,
 				62324CBA2073E36D0095CFD2 /* CalendarTableViewController.swift */,
 				62324CBE2073E3E50095CFD2 /* CalendarViewController.swift */,
 				B81C5CC2205DA0BD00F622F4 /* SocialViewController.swift */,
-				8F2D1D71207342480000A4E4 /* logintostoryViewController.swift */,
-				8F2D1D6F20732AAD0000A4E4 /* TestViewController.swift */,
 				B81C5CC6205DA12200F622F4 /* ReporterViewController.swift */,
 				B81C5CC8205DA13900F622F4 /* StoryIdeaViewController.swift */,
 				B81C5CC4205DA0C800F622F4 /* SettingsViewController.swift */,
@@ -549,14 +546,13 @@
 				8FB53A9B20753F52003C89D9 /* FilterCell.swift in Sources */,
 				62324CBF2073E3E50095CFD2 /* CalendarViewController.swift in Sources */,
 				B81C5CCB205DA18C00F622F4 /* CenterViewController.swift in Sources */,
+				8FD522AE207AAEB700A2594E /* loginTestViewController.swift in Sources */,
 				62324CBD2073E38D0095CFD2 /* CalendarTableViewCell.swift in Sources */,
 				B81C5CC9205DA13900F622F4 /* StoryIdeaViewController.swift in Sources */,
-				8F2D1D72207342480000A4E4 /* logintostoryViewController.swift in Sources */,
 				B847A2892057414A00F851D3 /* AppDelegate.swift in Sources */,
 				8F3932EC2077C8E100FE2111 /* HomeCollectionViewController.swift in Sources */,
 				B81C5CC7205DA12200F622F4 /* ReporterViewController.swift in Sources */,
 				8F0637C5206A91410012C5F2 /* ArticleViewController.swift in Sources */,
-				8F2D1D7020732AAD0000A4E4 /* TestViewController.swift in Sources */,
 				8F3932EE2078039800FE2111 /* VideoCell.swift in Sources */,
 				8F0637C7206A96D10012C5F2 /* ArticleTableViewCell.swift in Sources */,
 				1072D96C2058BFAD00CDCA20 /* CustomTabbarController.swift in Sources */,

@@ -236,7 +236,7 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     
     func showSettings() {
         if let window = UIApplication.shared.keyWindow {
-            blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+            blackView.backgroundColor = UIColor(white: 0, alpha: 0.75)
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
             window.addSubview(blackView)
             blackView.frame = window.frame

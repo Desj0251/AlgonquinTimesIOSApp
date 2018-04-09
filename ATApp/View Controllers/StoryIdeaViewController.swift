@@ -20,11 +20,33 @@ class StoryIdeaViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak internal var txtFieldTitle: UITextField!
 
-    var name: String?
+    var name: String? = ""
+    var prevVC: UIViewController!
+    
+    let backButton: UIButton = {
+        let button = UIButton()
+        var imageView = UIImage(named: "close")?.withRenderingMode(.alwaysTemplate)
+        button.setImage(imageView, for: .normal)
+        button.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
+        button.tintColor = UIColor.gray
+        return button
+    }()
+    
+    @objc func closeAction() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //let prevVC: logintostoryViewController!
+        // prevVC.dismiss(animated: false, completion: nil)
+        
+        self.view.addSubview(backButton)
+        
+        view.addConstraintsWithFormat("H:|-4-[v0(33)]|", views: backButton)
+        view.addConstraintsWithFormat("V:|-24-[v0(33)]|", views: backButton)
+        
         // Do any additional setup after loading the view.
         
         txtFieldTitle.layer.cornerRadius = 5
@@ -115,15 +137,5 @@ class StoryIdeaViewController: UIViewController {
     @objc func keyboardWillHide(_ notification: Notification) {
         self.bottomConstraints.constant = 0;        
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
