@@ -34,11 +34,34 @@ class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate {
     }()
     let twitterButton: UIButton = {
         let button = UIButton()
+//        button.setTitle("Continue with Twitter", for: .normal)
+//        button.setTitleColor(UIColor.white, for: .normal)
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+//        button.layer.cornerRadius = 3
+//        button.backgroundColor = UIColor.rgb(42, 163, 239)
+        
+        func imageResize (image:UIImage, sizeChange:CGSize) -> UIImage{
+            let hasAlpha = true
+            let scale: CGFloat = 0.0 // Use scale factor of main screen
+            UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+            image.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
+            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+            return scaledImage!
+        }
+        
+        button.frame =  CGRect(x: 2, y: 74, width: 140, height: 40)
+        button.tintColor = UIColor.white
+        var shareImage = UIImage(named: "twitter")
+        shareImage = imageResize(image: shareImage!, sizeChange: CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate)
+        button.setImage(shareImage, for: .normal)
+        button.tintColor = UIColor.white
+        button.imageEdgeInsets = UIEdgeInsets(top: 6,left: 3,bottom: 6,right: 195)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
         button.setTitle("Continue with Twitter", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
         button.layer.cornerRadius = 3
         button.backgroundColor = UIColor.rgb(42, 163, 239)
+        
         return button
     }()
     let background: UIImageView = {

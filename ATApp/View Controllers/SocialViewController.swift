@@ -52,6 +52,12 @@ class SocialViewController: UIViewController {
     func moreSetup(){
         let transform: CGAffineTransform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         
+        self.navigationController?.navigationBar.layer.shadowColor = UIColor.gray.cgColor
+        self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
+        self.navigationController?.navigationBar.layer.shadowRadius = 4.0
+        self.navigationController?.navigationBar.layer.shadowOpacity = 0.75
+        self.navigationController?.navigationBar.layer.masksToBounds = false
+        
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         activityIndicator.transform = transform
