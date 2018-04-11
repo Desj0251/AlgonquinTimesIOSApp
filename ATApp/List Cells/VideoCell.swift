@@ -60,7 +60,7 @@ class videoCell: BaseCell {
                     }
                 }
             } else {
-                userProfileImageView.image = UIImage(named: "taylor_swift_profile")
+                userProfileImageView.image = UIImage(named: "atlogowhite")
             }
             
             let dateFormatter = DateFormatter()
@@ -93,7 +93,7 @@ class videoCell: BaseCell {
                     }
                 }
             }  else {
-                thumbnailImageView.image = UIImage(named: "taylor_swift_bad_blood")
+                thumbnailImageView.image = UIImage(named: "image-not-found")
             }
             
         }

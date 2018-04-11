@@ -12,14 +12,26 @@ class CustomTabbarController: UITabBarController {
     
     let centerButton = UIButton.init(type: .custom)
     
+    func imageResize (image:UIImage, sizeChange:CGSize) -> UIImage{
+        let hasAlpha = true
+        let scale: CGFloat = 0.0 // Use scale factor of main screen
+        UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+        image.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        return scaledImage!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //Set tabbar controller delegate
         self.delegate = self;
         
-        centerButton.setImage(UIImage (named: "action")!, for: .normal)
+        var image = UIImage (named: "ic_add_circle_outline")
+        image = imageResize(image: image!, sizeChange: CGSize(width: 45, height: 45)).withRenderingMode(.alwaysTemplate)
+        centerButton.setImage(image!, for: .normal)
         centerButton.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside);
+        centerButton.tintColor = UIColor.rgb(193, 205, 193)
         self.view.insertSubview(centerButton, aboveSubview: self.tabBar)
     }
 

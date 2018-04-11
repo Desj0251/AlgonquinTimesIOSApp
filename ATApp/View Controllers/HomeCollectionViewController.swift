@@ -10,8 +10,6 @@ import UIKit
 
 private let reuseIdentifier = "SomeId"
 
-
-
 class HomeCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {}
@@ -31,33 +29,16 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
     let activityIndicator = UIActivityIndicatorView()
     
     let settings: [Setting] = {
-        return[Setting(name: "All", id: 0, imageName: "help"),
-               Setting(name: "Activities", id: 1252, imageName: "help"),
-               Setting(name: "Advertise with Us", id: 1173, imageName: "help"),
-               Setting(name: "Algonquin Reads", id: 1226, imageName: "help"),
-               Setting(name: "Blog", id: 1310, imageName: "help"),
-               Setting(name: "Careers", id: 2, imageName: "help"),
-               Setting(name: "Classifieds", id: 1176, imageName: "help"),
-               Setting(name: "Entertainment", id: 3, imageName: "help"),
-               Setting(name: "Featured Stories", id: 1311, imageName: "help"),
-               Setting(name: "Focus", id: 10, imageName: "help"),
-               Setting(name: "Full Editions", id: 593, imageName: "help"),
-               Setting(name: "Gallery", id: 1145, imageName: "help"),
-               Setting(name: "Gallery Pages", id: 4, imageName: "help"),
-               Setting(name: "Innovations", id: 5, imageName: "help"),
-               Setting(name: "Life", id: 6, imageName: "help"),
-               Setting(name: "News", id: 7, imageName: "help"),
-               Setting(name: "Off Campus", id: 8, imageName: "help"),
-               Setting(name: "Opinions", id: 9, imageName: "help"),
-               Setting(name: "People", id: 1626, imageName: "help"),
-               Setting(name: "Place an Ad", id: 1246, imageName: "help"),
-               Setting(name: "Social Events", id: 1309, imageName: "help"),
-               Setting(name: "Sports", id: 11, imageName: "help"),
-               Setting(name: "Submissions", id: 1623, imageName: "help"),
-               Setting(name: "Technology", id: 1627, imageName: "help"),
-               Setting(name: "Times Capsule", id: 1584, imageName: "help"),
-               Setting(name: "Uncategorized", id: 1, imageName: "help"),
-               Setting(name: "Video", id: 12, imageName: "help")]
+        return[Setting(name: "All", id: 0, imageName: "ic_filter_none_18pt"),
+               Setting(name: "Featured Stories", id: 1311, imageName: "ic_star_rate_18pt"),
+               Setting(name: "News", id: 7, imageName: "ic_local_library_18pt"),
+               Setting(name: "Entertainment", id: 3, imageName: "ic_movie_creation_18pt"),
+               Setting(name: "Sports", id: 11, imageName: "ic_pool_18pt"),
+               Setting(name: "Activities", id: 1252, imageName: "ic_font_download"),
+               Setting(name: "Lifestyles", id: 6, imageName: "ic_flag"),
+               Setting(name: "Innovations", id: 5, imageName: "ic_lightbulb_outline"),
+               Setting(name: "Opinions", id: 9, imageName: "ic_question_answer"),
+               Setting(name: "Focus", id: 10, imageName: "ic_center_focus_strong_18pt")]
     }()
     
     // onLoad and onAppear --------------------------------
@@ -118,10 +99,22 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
         }
     }
     
+    func imageResize (image:UIImage, sizeChange:CGSize) -> UIImage{
+        let hasAlpha = true
+        let scale: CGFloat = 0.0 // Use scale factor of main screen
+        UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+        image.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        return scaledImage!
+    }
+    
     // UI Setup --------------------------------
     func setupNavBarButtons() {
         let searchBarButtonItem = UIBarButtonItem(image: UIImage(named: "search_icon"), style: .plain, target: self, action: #selector(handleSearch))
-        let moreButton = UIBarButtonItem(image: UIImage(named: "help"), style: .plain, target: self, action: #selector(handleMore))
+        var image = UIImage(named: "ic_filter_list")
+        image = imageResize(image: image!, sizeChange: CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate)
+        
+        let moreButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(handleMore))
         
         moreButton.tintColor = UIColor.white
         searchBarButtonItem.tintColor = UIColor.white
@@ -243,7 +236,7 @@ class HomeCollectionViewController: UICollectionViewController, UICollectionView
             blackView.alpha = 0
             
             window.addSubview(settingView)
-            let cellHeight: CGFloat = window.frame.height * 0.75
+            let cellHeight: CGFloat = window.frame.height * 0.6
             let y = window.frame.height - cellHeight
             settingView.frame = CGRect(x: 0,y: window.frame.height, width: window.frame.width, height: cellHeight)
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {

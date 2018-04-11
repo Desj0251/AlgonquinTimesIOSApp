@@ -34,7 +34,7 @@ class CalendarViewController: UIViewController {
                     }
                 }
             } else {
-                self.imageView.image = UIImage(named: "taylor_swift_bad_blood")
+                self.imageView.image = UIImage(named: "image-not-found")
             }
             
             let title = events?["title"] as? String

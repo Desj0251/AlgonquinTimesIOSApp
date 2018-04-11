@@ -34,7 +34,7 @@ class ArticleViewController: UIViewController {
                         }
                     }
                 } else {
-                    self.imageView.image = UIImage(named: "taylor_swift_bad_blood")
+                    self.imageView.image = UIImage(named: "image-not-found")
                 }
                         
                 let title = article!["title"] as? [String: Any]
@@ -73,7 +73,7 @@ class ArticleViewController: UIViewController {
                         }
                     }
                 } else {
-                    userProfileImageView.image = UIImage(named: "taylor_swift_profile")
+                    userProfileImageView.image = UIImage(named: "atlogowhite")
                 }
                 
             }

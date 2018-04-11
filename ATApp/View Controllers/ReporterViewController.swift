@@ -38,6 +38,15 @@ UINavigationControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func imageResize (image:UIImage, sizeChange:CGSize) -> UIImage{
+        let hasAlpha = true
+        let scale: CGFloat = 0.0 // Use scale factor of main screen
+        UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+        image.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        return scaledImage!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,6 +54,11 @@ UINavigationControllerDelegate {
         
         view.addConstraintsWithFormat("H:|-4-[v0(33)]|", views: backButton)
         view.addConstraintsWithFormat("V:|-24-[v0(33)]|", views: backButton)
+        
+        let image = UIImage(named: "camera")?.withRenderingMode(.alwaysTemplate)
+        imgViewPhoto.image = (image!)
+        
+        imgViewPhoto.tintColor = UIColor.darkGray
         
         self.picker.delegate = self;
         // Do any additional setup after loading the view.
