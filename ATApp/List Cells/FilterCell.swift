@@ -72,9 +72,9 @@ class FilterCell: BaseCell {
         addSubview(nameLabel)
         addSubview(iconImageView)
         
-        addConstraintsWithFormat("H:|-8-[v0(20)]-8-[v1]|", views: iconImageView, nameLabel)
+        addConstraintsWithFormat("H:|-8-[v0(15)]-8-[v1]|", views: iconImageView, nameLabel)
         addConstraintsWithFormat("V:|[v0]|", views: nameLabel)
-        addConstraintsWithFormat("V:[v0(20)]", views: iconImageView)
+        addConstraintsWithFormat("V:[v0(15)]", views: iconImageView)
         addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
         
     }

@@ -140,6 +140,7 @@ class videoCell: BaseCell {
         label.font = UIFont.italicSystemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = UIColor.clear
+        label.isEditable = false
         return label
     }()
     
