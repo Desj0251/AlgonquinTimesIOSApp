@@ -16,7 +16,7 @@ class videoCell: BaseCell {
     
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? UIColor.rgb(200, 200, 200) : UIColor.white
+            backgroundColor = isHighlighted ? UIColor.rgb(193, 205, 193) : UIColor.white
         }
     }
     
@@ -140,7 +140,6 @@ class videoCell: BaseCell {
         label.font = UIFont.italicSystemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = UIColor.clear
-        label.isEditable = false
         return label
     }()
     

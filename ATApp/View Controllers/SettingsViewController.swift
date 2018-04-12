@@ -18,6 +18,12 @@ class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate {
         return true
     }
     
+    let seperatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 233/255, green: 233/255, blue: 233/255,alpha: 1)
+        return view
+    }()
+    
     let loginButton: FBSDKLoginButton = {
         let button = FBSDKLoginButton()
         button.readPermissions = ["email"]
@@ -25,9 +31,40 @@ class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate {
         return button
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    let twitterButton: UIButton = {
+        let button = UIButton()
+        //        button.setTitle("Continue with Twitter", for: .normal)
+        //        button.setTitleColor(UIColor.white, for: .normal)
+        //        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+        //        button.layer.cornerRadius = 3
+        //        button.backgroundColor = UIColor.rgb(42, 163, 239)
+        
+        func imageResize (image:UIImage, sizeChange:CGSize) -> UIImage{
+            let hasAlpha = true
+            let scale: CGFloat = 0.0 // Use scale factor of main screen
+            UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+            image.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
+            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+            return scaledImage!
+        }
+        
+        button.frame =  CGRect(x: 2, y: 74, width: 140, height: 40)
+        button.tintColor = UIColor.white
+        var shareImage = UIImage(named: "twitter")
+        shareImage = imageResize(image: shareImage!, sizeChange: CGSize(width: 23, height: 23)).withRenderingMode(.alwaysTemplate)
+        button.setImage(shareImage, for: .normal)
+        button.tintColor = UIColor.white
+        button.imageEdgeInsets = UIEdgeInsets(top: 6,left: 3,bottom: 6,right: 195)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
+        button.setTitle("Continue with Twitter", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+        button.layer.cornerRadius = 3
+        button.backgroundColor = UIColor.rgb(42, 163, 239)
+        
+        return button
+    }()
+    
+    func setupUI() {
         self.navigationController?.navigationBar.layer.shadowColor = UIColor.gray.cgColor
         self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 5.0)
         self.navigationController?.navigationBar.layer.shadowRadius = 4.0
@@ -42,20 +79,108 @@ class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate {
         navigationTitlelabel.text = "Settings"
         
         self.navigationController!.navigationBar.topItem!.titleView = navigationTitlelabel
-        
-        view.addSubview(loginButton)
-        
+    
         let width = view.frame.width
         
-        view.addConstraintsWithFormat("H:|-8-[v0(\(width - 16))]-8-|", views: loginButton)
-        view.addConstraintsWithFormat("V:|-8-[v0(50)]|", views: loginButton)
+        // Facebook logout cell ------------
+        let cellView: UIView = {
+            let view = UIView()
+            return view
+        }()
+        view.addSubview(cellView)
+        cellView.addSubview(loginButton)
+        view.addConstraintsWithFormat("H:|-0-[v0(\(width))]-0-|", views: cellView)
+        view.addConstraintsWithFormat("V:|-0-[v0(50)]|", views: cellView)
+        cellView.addConstraintsWithFormat("H:|-8-[v0(\(width - 16))]-8-|", views: loginButton)
+        cellView.addConstraintsWithFormat("V:|-8-[v0(34)]-8-|", views: loginButton)
         
-        // Do any additional setup after loading the view.
+        // Twitter logout cell ------------
+        let cellView2: UIView = {
+            let view = UIView()
+            return view
+        }()
+        view.addSubview(cellView2)
+        cellView2.addSubview(twitterButton)
+        view.addConstraintsWithFormat("H:|-0-[v0(\(width))]-0-|", views: cellView2)
+        view.addConstraintsWithFormat("V:|-50-[v0(50)]|", views: cellView2)
+        cellView2.addConstraintsWithFormat("H:|-8-[v0(\(width - 16))]-8-|", views: twitterButton)
+        cellView2.addConstraintsWithFormat("V:|-8-[v0(34)]-8-|", views: twitterButton)
+        
+        // Terms and Services cell ------------
+        let cellView3: UIView = {
+            let view = UIView()
+            return view
+        }()
+        let goButton: UIButton = {
+            let button = UIButton()
+            let imageView = UIImage(named: "ic_chevron_right")?.withRenderingMode(.alwaysTemplate)
+            button.setImage(imageView, for: .normal)
+            button.addTarget(self, action: #selector(goToTerms), for: .touchUpInside)
+            button.tintColor = UIColor.gray
+            return button
+        }()
+        let terms: UILabel = {
+            let label = UILabel()
+            label.font = UIFont.boldSystemFont(ofSize: 18)
+            label.text = "Terms & Conditions"
+            label.textColor = UIColor.darkGray
+            return label
+        }()
+        view.addSubview(cellView3)
+        cellView3.addSubview(terms)
+        cellView3.addSubview(goButton)
+        view.addConstraintsWithFormat("H:|-0-[v0(\(width))]-0-|", views: cellView3)
+        view.addConstraintsWithFormat("V:|-100-[v0(50)]|", views: cellView3)
+        cellView3.addConstraintsWithFormat("H:|-\(width - 46)-[v0(30)]-16-|", views: goButton)
+        cellView3.addConstraintsWithFormat("V:|-8-[v0(30)]-8-|", views: goButton)
+        cellView3.addConstraintsWithFormat("H:|-16-[v0]|", views: terms)
+        cellView3.addConstraintsWithFormat("V:|-8-[v0(34)]-8-|", views: terms)
+        
+        // Terms and Services cell ------------
+        let cellView4: UIView = {
+            let view = UIView()
+            return view
+        }()
+        let goButton2: UIButton = {
+            let button = UIButton()
+            let imageView = UIImage(named: "ic_chevron_right")?.withRenderingMode(.alwaysTemplate)
+            button.setImage(imageView, for: .normal)
+            button.addTarget(self, action: #selector(goToAbout), for: .touchUpInside)
+            button.tintColor = UIColor.gray
+            return button
+        }()
+        let about: UILabel = {
+            let label = UILabel()
+            label.font = UIFont.boldSystemFont(ofSize: 18)
+            label.text = "About Us & Contact Info"
+            label.textColor = UIColor.darkGray
+            return label
+        }()
+        view.addSubview(cellView4)
+        cellView4.addSubview(about)
+        cellView4.addSubview(goButton2)
+        view.addConstraintsWithFormat("H:|-0-[v0(\(width))]-0-|", views: cellView4)
+        view.addConstraintsWithFormat("V:|-150-[v0(50)]|", views: cellView4)
+        cellView4.addConstraintsWithFormat("H:|-16-[v0]|", views: about)
+        cellView4.addConstraintsWithFormat("V:|-8-[v0(34)]-8-|", views: about)
+        cellView4.addConstraintsWithFormat("H:|-\(width - 46)-[v0(30)]-16-|", views: goButton2)
+        cellView4.addConstraintsWithFormat("V:|-8-[v0(30)]-8-|", views: goButton2)
+        
     }
-
+    @objc func goToTerms() {
+        let destinationViewController = storyboard?.instantiateViewController(withIdentifier: "termsViewController") as! termsViewController
+        present(destinationViewController, animated: true, completion: { })
+    }
+    @objc func goToAbout() {
+        let destinationViewController = storyboard?.instantiateViewController(withIdentifier: "aboutViewController") as! aboutViewController
+        present(destinationViewController, animated: true, completion: { })
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         print("completed login")
-        //fetchProfile()
     }
     
 }

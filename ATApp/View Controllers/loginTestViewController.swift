@@ -133,10 +133,10 @@ class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate {
     }()
     let terms: UIButton = {
         let button = UIButton()
-        button.setTitle("Terms and Conditions", for: .normal)
+        button.setTitle("Terms & Conditions", for: .normal)
         button.setTitleColor(UIColor.forestGreen, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
-        //button.addTarget(self, action: #selector(nil), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goToTerms), for: .touchUpInside)
         return button
     }()
     func setupView(){
@@ -276,5 +276,9 @@ class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate {
                 destination.prevVC = self
             }
         }
+    }
+    @objc func goToTerms() {
+        let destinationViewController = storyboard?.instantiateViewController(withIdentifier: "termsViewController") as! termsViewController
+        present(destinationViewController, animated: true, completion: { })
     }
 }
