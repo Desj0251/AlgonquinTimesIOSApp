@@ -16,7 +16,7 @@ class videoCell: BaseCell {
     
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? UIColor.rgb(193, 205, 193) : UIColor.white
+            backgroundColor = isHighlighted ? UIColor.lightGray : UIColor.white
         }
     }
     
@@ -135,6 +135,7 @@ class videoCell: BaseCell {
     }()
     let subtitleLabel: UITextView = {
         let label = UITextView()
+        label.isUserInteractionEnabled = false
         label.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
         label.textColor = UIColor.gray
         label.font = UIFont.italicSystemFont(ofSize: 14)

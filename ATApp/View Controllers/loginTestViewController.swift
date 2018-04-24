@@ -9,16 +9,65 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import AccountKit
 
-class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate {
+class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate, AKFViewControllerDelegate {
     
     var chosenButton = 0
     var name: String? = ""
+    var accountKit: AKFAccountKit!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if accountKit == nil {
+            // may also specify AKFResponseTypeAccessToken
+            self.accountKit = AKFAccountKit(responseType: AKFResponseType.accessToken)
+        }
+        
         setupView()
     }
+    
+    //AKit stuff-------------
+    
+    func prepareLoginViewController(_ loginViewController: AKFViewController) {
+        loginViewController.delegate = self
+    }
+    
+    func viewController(_ viewController: (UIViewController & AKFViewController)!, didCompleteLoginWith accessToken: AKFAccessToken!, state: String!) {
+        print("Login succcess with AccessToken")
+        loggedInAK()
+    }
+    func viewController(_ viewController: (UIViewController & AKFViewController)!, didCompleteLoginWithAuthorizationCode code: String!, state: String!) {
+        print("Login succcess with AuthorizationCode")
+        loggedInAK()
+    }
+    private func viewController(_ viewController: UIViewController!, didFailWithError error: NSError!) {
+        print("We have an error \(error)")
+    }
+    func viewControllerDidCancel(_ viewController: (UIViewController & AKFViewController)!) {
+        print("The user cancel the login")
+    }
+    
+    @objc func loginWithPhone() {
+        //login with Phone
+        print("login with phone")
+        let inputState: String = UUID().uuidString
+        let viewController:AKFViewController = accountKit.viewControllerForPhoneLogin(with: nil, state: inputState)  as AKFViewController
+        viewController.enableSendToFacebook = true
+        self.prepareLoginViewController(viewController)
+        self.present(viewController as! UIViewController, animated: true, completion: nil)
+    }
+    
+    @objc func loginWithEmail() {
+        //login with Email
+        let inputState: String = UUID().uuidString
+        let viewController: AKFViewController = accountKit.viewControllerForEmailLogin(withEmail: nil, state: inputState)  as AKFViewController
+        self.prepareLoginViewController(viewController)
+        self.present(viewController as! UIViewController, animated: true, completion: nil)
+    }
+    
+    // ----------------------
     
     let blackView = UIView()
     let settingView: UIView = {
@@ -32,38 +81,23 @@ class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
         return button
     }()
-    let twitterButton: UIButton = {
+    let phoneButton: UIButton = {
         let button = UIButton()
-//        button.setTitle("Continue with Twitter", for: .normal)
-//        button.setTitleColor(UIColor.white, for: .normal)
-//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
-//        button.layer.cornerRadius = 3
-//        button.backgroundColor = UIColor.rgb(42, 163, 239)
-        
-        func imageResize (image:UIImage, sizeChange:CGSize) -> UIImage{
-            let hasAlpha = true
-            let scale: CGFloat = 0.0 // Use scale factor of main screen
-            UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
-            image.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
-            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-            return scaledImage!
-        }
-        
-        button.frame =  CGRect(x: 2, y: 74, width: 140, height: 40)
-        button.tintColor = UIColor.white
-        var shareImage = UIImage(named: "twitter")
-        shareImage = imageResize(image: shareImage!, sizeChange: CGSize(width: 25, height: 25)).withRenderingMode(.alwaysTemplate)
-        button.setImage(shareImage, for: .normal)
-        button.tintColor = UIColor.white
-        button.imageEdgeInsets = UIEdgeInsets(top: 6,left: 3,bottom: 6,right: 195)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
-        button.setTitle("Continue with Twitter", for: .normal)
+        button.setTitle("Continue with Phone", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
-        button.layer.cornerRadius = 3
-        button.backgroundColor = UIColor.rgb(42, 163, 239)
-        
+        button.backgroundColor = UIColor.rgb(63,179,97)
         return button
     }()
+    let emailButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Continue with Email", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+        button.backgroundColor = UIColor.red
+        return button
+    }()
+    
     let background: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "ACollege")!.alpha(0.1)
@@ -184,7 +218,9 @@ class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     @objc func actionButton() {
-        if (FBSDKAccessToken.current()) != nil {
+        if (accountKit.currentAccessToken != nil) {
+            loggedInAK()
+        } else if (FBSDKAccessToken.current()) != nil {
             fetchProfile()
         } else {
             if let window = UIApplication.shared.keyWindow {
@@ -202,12 +238,17 @@ class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate {
                 settingView.addConstraintsWithFormat("H:|-8-[v0(\(width - 16))]-8-|", views: loginButton)
                 settingView.addConstraintsWithFormat("V:|-8-[v0(50)]|", views: loginButton)
                 loginButton.delegate = self
-                settingView.addSubview(twitterButton)
-                settingView.addConstraintsWithFormat("H:|-8-[v0(\(width - 16))]-8-|", views: twitterButton)
-                settingView.addConstraintsWithFormat("V:|-66-[v0(50)]|", views: twitterButton)
+                settingView.addSubview(phoneButton)
+                phoneButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginWithPhone)))
+                settingView.addConstraintsWithFormat("H:|-8-[v0(\(width - 16))]-8-|", views: phoneButton)
+                settingView.addConstraintsWithFormat("V:|-66-[v0(50)]|", views: phoneButton)
+                settingView.addSubview(emailButton)
+                emailButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loginWithEmail)))
+                settingView.addConstraintsWithFormat("H:|-8-[v0(\(width - 16))]-8-|", views: emailButton)
+                settingView.addConstraintsWithFormat("V:|-124-[v0(50)]|", views: emailButton)
                 
                 // let cellHeight: CGFloat = window.frame.height * 0.25
-                let cellHeight: CGFloat = 124.0
+                let cellHeight: CGFloat = 182.0
                 let y = window.frame.height - cellHeight
                 settingView.frame = CGRect(x: 0,y: window.frame.height, width: window.frame.width, height: cellHeight)
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -277,6 +318,17 @@ class loginTestViewController: UIViewController, FBSDKLoginButtonDelegate {
             }
         }
     }
+    func loggedInAK() {
+        self.name = "AccountKit Login"
+        // if the user is already logged in, go to the main screen
+        print("User already logged in go to ViewController")
+        if self.chosenButton == 2 {
+            self.performSegue(withIdentifier: "toReport", sender: self)
+        } else if self.chosenButton == 1 {
+            self.performSegue(withIdentifier: "toStory", sender: self)
+        }
+    }
+    
     @objc func goToTerms() {
         let destinationViewController = storyboard?.instantiateViewController(withIdentifier: "termsViewController") as! termsViewController
         present(destinationViewController, animated: true, completion: { })

@@ -9,13 +9,25 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import AccountKit
 
 class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate {
   
+    var accountKit: AKFAccountKit!
+    
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
     }
     func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
         return true
+    }
+    
+    @objc func logoutAK() {
+        print("logout success")
+        accountKit.logOut()
+        let alertVC = UIAlertController( title: "Logout Success", message: "Successfully logged out of AccountKit!", preferredStyle: .alert)
+        let okAction = UIAlertAction( title: "OK", style:.default, handler: nil)
+        alertVC.addAction(okAction)
+        present( alertVC, animated: true,completion: nil)
     }
     
     let seperatorView: UIView = {
@@ -33,34 +45,10 @@ class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     let twitterButton: UIButton = {
         let button = UIButton()
-        //        button.setTitle("Continue with Twitter", for: .normal)
-        //        button.setTitleColor(UIColor.white, for: .normal)
-        //        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
-        //        button.layer.cornerRadius = 3
-        //        button.backgroundColor = UIColor.rgb(42, 163, 239)
-        
-        func imageResize (image:UIImage, sizeChange:CGSize) -> UIImage{
-            let hasAlpha = true
-            let scale: CGFloat = 0.0 // Use scale factor of main screen
-            UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
-            image.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
-            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-            return scaledImage!
-        }
-        
-        button.frame =  CGRect(x: 2, y: 74, width: 140, height: 40)
-        button.tintColor = UIColor.white
-        var shareImage = UIImage(named: "twitter")
-        shareImage = imageResize(image: shareImage!, sizeChange: CGSize(width: 23, height: 23)).withRenderingMode(.alwaysTemplate)
-        button.setImage(shareImage, for: .normal)
-        button.tintColor = UIColor.white
-        button.imageEdgeInsets = UIEdgeInsets(top: 6,left: 3,bottom: 6,right: 195)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
-        button.setTitle("Continue with Twitter", for: .normal)
+        button.setTitle("Logout of Account Kit", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
-        button.layer.cornerRadius = 3
-        button.backgroundColor = UIColor.rgb(42, 163, 239)
-        
+        button.backgroundColor = UIColor.forestGreen
         return button
     }()
     
@@ -101,6 +89,7 @@ class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate {
         }()
         view.addSubview(cellView2)
         cellView2.addSubview(twitterButton)
+        twitterButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(logoutAK)))
         view.addConstraintsWithFormat("H:|-0-[v0(\(width))]-0-|", views: cellView2)
         view.addConstraintsWithFormat("V:|-50-[v0(50)]|", views: cellView2)
         cellView2.addConstraintsWithFormat("H:|-8-[v0(\(width - 16))]-8-|", views: twitterButton)
@@ -177,6 +166,12 @@ class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        if accountKit == nil {
+            self.accountKit = AKFAccountKit(responseType: AKFResponseType.accessToken)
+            accountKit.requestAccount{
+                (account, error) -> Void in
+            }
+        }
         setupUI()
     }
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {

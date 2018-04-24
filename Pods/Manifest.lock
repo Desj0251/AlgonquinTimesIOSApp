@@ -1,4 +1,5 @@
 PODS:
+  - AccountKit (4.31.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -11,13 +12,15 @@ PODS:
     - FBSDKCoreKit
 
 DEPENDENCIES:
+  - AccountKit
   - FBSDKLoginKit
 
 SPEC CHECKSUMS:
+  AccountKit: f3e48047e6fb1c433dff37c61158fd32bbc482cf
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
   FBSDKLoginKit: 99797ac39252fef6f72600b886f6ee60b4b29cab
 
-PODFILE CHECKSUM: 29deedcd0f22de73a9fd7bff888c1c52ba91380e
+PODFILE CHECKSUM: 9a8fe33d590ba3d2fbd925cc9725b93d27a91506
 
 COCOAPODS: 1.4.0

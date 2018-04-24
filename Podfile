@@ -7,6 +7,7 @@ target 'ATApp' do
 
   # Pods for ATApp
 	pod 'FBSDKLoginKit'
+	pod 'AccountKit'
   target 'ATAppTests' do
     inherit! :search_paths
     # Pods for testing

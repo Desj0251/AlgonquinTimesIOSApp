@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class StoryIdeaViewController: UIViewController {
+class StoryIdeaViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak internal var lblHelloName: UILabel!
     @IBOutlet weak var bottomConstraints: NSLayoutConstraint!
@@ -22,6 +23,20 @@ class StoryIdeaViewController: UIViewController {
 
     var name: String? = ""
     var prevVC: UIViewController!
+    
+    func sendEmail() {
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        composeVC.setToRecipients(["desjjoh@gmail.com"])
+        composeVC.setSubject("Test Emails")
+        composeVC.setMessageBody("Hello this is a test Email", isHTML: false)
+        self.present(composeVC, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
     
     let backButton: UIButton = {
         let button = UIButton()
@@ -85,6 +100,12 @@ class StoryIdeaViewController: UIViewController {
     }
     
     @IBAction func btnSubmit(_ sender: Any) {
+        
+        if !MFMailComposeViewController.canSendMail() {
+            print("Mail services are not available")
+            return
+        }
+        sendEmail()
         
         let alertVC = UIAlertController( title: "Success!", message: "Thank you for submission.", preferredStyle: .alert)
         let okAction = UIAlertAction( title: "OK", style:.default) { (action) in

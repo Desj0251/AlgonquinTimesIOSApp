@@ -21,9 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // extra stuff
         application.statusBarStyle = .lightContent
         
-        let statusBarBackgroundView = UIView()
-        statusBarBackgroundView.backgroundColor = UIColor.forestGreen
-        
         return true
     }
     
